@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5fb">
+    <meta name="description" content="A calm, colorful Sudoku game. Pick a difficulty and play at your own pace.">
+    <title>Sudoku — A little brain break</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Sudoku home">
+        <span class="brand-mark" aria-hidden="true">9</span>
+        <span class="brand-name">sudoku<span class="brand-period">.</span></span>
+      </a>
+      <p class="header-note"><span class="sparkle" aria-hidden="true">✳</span> A little brain break</p>
+    </header>
+
+    <main class="page">
+      <section class="game-card" aria-labelledby="game-title">
+        <div class="game-intro">
+          <div>
+            <p class="eyebrow">YOUR DAILY MOMENT OF CALM</p>
+            <h1 id="game-title">Find your <span>focus.</span></h1>
+            <p class="subtitle">One grid, one number at a time. You’ve got this.</p>
+          </div>
+          <div class="status-pill" id="status-pill" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="status-text">In progress</span>
+          </div>
+        </div>
+
+        <div class="game-layout">
+          <div class="board-column">
+            <div class="game-stats" aria-label="Game statistics">
+              <div class="stat">
+                <span class="stat-label">DIFFICULTY</span>
+                <label class="visually-hidden" for="difficulty">Choose difficulty</label>
+                <select id="difficulty">
+                  <option value="Easy">Easy</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Hard">Hard</option>
+                </select>
+              </div>
+              <div class="stat">
+                <span class="stat-label">TIME</span>
+                <span class="stat-value" id="timer">00:00</span>
+              </div>
+            </div>
+
+            <div class="board-wrap">
+              <div id="board" class="board" role="grid" aria-label="Sudoku puzzle"></div>
+            </div>
+
+            <div class="number-pad" aria-label="Enter a number">
+              <button class="number-button" data-number="1" aria-label="Enter 1">1</button>
+              <button class="number-button" data-number="2" aria-label="Enter 2">2</button>
+              <button class="number-button" data-number="3" aria-label="Enter 3">3</button>
+              <button class="number-button" data-number="4" aria-label="Enter 4">4</button>
+              <button class="number-button" data-number="5" aria-label="Enter 5">5</button>
+              <button class="number-button" data-number="6" aria-label="Enter 6">6</button>
+              <button class="number-button" data-number="7" aria-label="Enter 7">7</button>
+              <button class="number-button" data-number="8" aria-label="Enter 8">8</button>
+              <button class="number-button" data-number="9" aria-label="Enter 9">9</button>
+            </div>
+
+            <p class="keyboard-hint">Tip: use your <strong>keyboard</strong> to enter numbers and arrow keys to move.</p>
+          </div>
+
+          <aside class="side-panel" aria-label="Game controls">
+            <div class="panel-heading">
+              <span class="panel-icon" aria-hidden="true">✦</span>
+              <div>
+                <h2>Make your move</h2>
+                <p>Choose a square, then a number.</p>
+              </div>
+            </div>
+
+            <div class="action-list">
+              <button class="action-button" id="notes-button" aria-pressed="false">
+                <span class="action-icon notes-icon" aria-hidden="true">✎</span>
+                <span class="action-copy"><strong>Notes</strong><small>Jot down possibilities</small></span>
+                <span class="toggle-indicator" aria-hidden="true"></span>
+              </button>
+              <button class="action-button" id="erase-button">
+                <span class="action-icon erase-icon" aria-hidden="true">⌫</span>
+                <span class="action-copy"><strong>Erase</strong><small>Clear this square</small></span>
+              </button>
+              <button class="action-button" id="hint-button">
+                <span class="action-icon hint-icon" aria-hidden="true">✧</span>
+                <span class="action-copy"><strong>Hint</strong><small id="hints-remaining">5 hints left</small></span>
+              </button>
+              <button class="action-button" id="check-button">
+                <span class="action-icon check-icon" aria-hidden="true">✓</span>
+                <span class="action-copy"><strong>Check</strong><small>See how you’re doing</small></span>
+              </button>
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="puzzle-actions">
+              <button class="text-button" id="restart-button"><span aria-hidden="true">↺</span> Restart puzzle</button>
+              <button class="new-game-button" id="new-game-button">New puzzle <span aria-hidden="true">→</span></button>
+            </div>
+            <p class="game-message" id="game-message" aria-live="polite">Every row, column &amp; 3×3 box needs 1–9.</p>
+          </aside>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>Take a breath. Take your time.</span>
+        <span class="footer-flower" aria-hidden="true">✿</span>
+      </footer>
+    </main>
+  </body>
+</html>
