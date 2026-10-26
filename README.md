@@ -4,6 +4,7 @@ A colorful, responsive Sudoku game that runs in your browser. Choose a difficult
 
 ## Features
 
+- A custom home page with a puzzle preview, selectable difficulty, and Sudoku rules
 - Three difficulty levels: Easy, Medium, and Hard
 - A countdown timer for each difficulty:
   - Easy: 10 minutes

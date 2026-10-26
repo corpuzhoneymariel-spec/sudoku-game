@@ -12,6 +12,13 @@ const statusElement = document.querySelector("#status-text");
 const notesButton = document.querySelector("#notes-button");
 const hintButton = document.querySelector("#hint-button");
 const hintsRemainingElement = document.querySelector("#hints-remaining");
+const homeScreen = document.querySelector("#home-screen");
+const gameCard = document.querySelector("#game-card");
+const homeStartButton = document.querySelector("#home-start-button");
+const homeContinueButton = document.querySelector("#home-continue-button");
+const homeLink = document.querySelector("#home-link");
+const previewBoard = document.querySelector("#preview-board");
+const homeDifficultyButtons = [...document.querySelectorAll("[data-home-difficulty]")];
 
 let puzzle = [];
 let solution = [];
@@ -23,6 +30,9 @@ let remainingSeconds = 0;
 let timerId;
 let gameComplete = false;
 let hintsUsed = 0;
+let hasStartedGame = false;
+let gameVisible = false;
+let selectedHomeDifficulty = difficultyElement.value;
 
 function shuffled(items) {
   const result = [...items];
@@ -174,6 +184,29 @@ function updateHintButton() {
   hintButton.disabled = hintsRemaining === 0;
 }
 
+function renderPreviewBoard() {
+  const sample = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9],
+  ];
+  const highlightedCells = new Set([22, 40, 57]);
+  previewBoard.replaceChildren();
+  sample.flat().forEach((value, index) => {
+    const cell = document.createElement("span");
+    cell.className = "preview-cell";
+    if (highlightedCells.has(index)) cell.classList.add("is-highlighted");
+    cell.textContent = value === 0 ? "" : String(value);
+    previewBoard.append(cell);
+  });
+}
+
 function startTimer() {
   window.clearInterval(timerId);
   timerId = window.setInterval(() => {
@@ -200,6 +233,8 @@ function startNewGame() {
   remainingSeconds = DIFFICULTY_TIME_LIMITS[difficultyElement.value] * 60;
   gameComplete = false;
   hintsUsed = 0;
+  hasStartedGame = true;
+  homeContinueButton.hidden = false;
   statusElement.textContent = "In progress";
   notesButton.setAttribute("aria-pressed", "false");
   updateHintButton();
@@ -207,6 +242,39 @@ function startNewGame() {
   showMessage("Every row, column & 3×3 box needs 1–9.");
   renderBoard();
   startTimer();
+}
+
+function showHome() {
+  window.clearInterval(timerId);
+  gameVisible = false;
+  homeScreen.hidden = false;
+  gameCard.hidden = true;
+  selectHomeDifficulty(difficultyElement.value);
+  homeContinueButton.hidden = !hasStartedGame;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showGame() {
+  homeScreen.hidden = true;
+  gameCard.hidden = false;
+  gameVisible = true;
+  if (hasStartedGame && !gameComplete && remainingSeconds > 0) startTimer();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function startHomeGame() {
+  difficultyElement.value = selectedHomeDifficulty;
+  startNewGame();
+  showGame();
+}
+
+function selectHomeDifficulty(difficulty) {
+  selectedHomeDifficulty = difficulty;
+  homeDifficultyButtons.forEach((button) => {
+    const selected = button.dataset.homeDifficulty === difficulty;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
 }
 
 function enterNumber(number) {
@@ -367,9 +435,18 @@ document.querySelector("#restart-button").addEventListener("click", () => {
 });
 document.querySelector("#new-game-button").addEventListener("click", startNewGame);
 difficultyElement.addEventListener("change", startNewGame);
+homeStartButton.addEventListener("click", startHomeGame);
+homeContinueButton.addEventListener("click", showGame);
+homeDifficultyButtons.forEach((button) => {
+  button.addEventListener("click", () => selectHomeDifficulty(button.dataset.homeDifficulty));
+});
+homeLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  showHome();
+});
 
 document.addEventListener("keydown", (event) => {
-  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (!gameVisible || event.altKey || event.ctrlKey || event.metaKey) return;
   if (/^[1-9]$/.test(event.key)) {
     enterNumber(Number(event.key));
   } else if (event.key === "Backspace" || event.key === "Delete") {
@@ -389,4 +466,4 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-startNewGame();
+renderPreviewBoard();

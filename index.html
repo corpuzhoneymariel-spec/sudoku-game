@@ -11,7 +11,7 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#" aria-label="Sudoku home">
+      <a class="brand" id="home-link" href="#home" aria-label="Sudoku home">
         <span class="brand-mark" aria-hidden="true">9</span>
         <span class="brand-name">sudoku<span class="brand-period">.</span></span>
       </a>
@@ -19,7 +19,68 @@
     </header>
 
     <main class="page">
-      <section class="game-card" aria-labelledby="game-title">
+      <section class="home-screen" id="home-screen" aria-labelledby="home-title">
+        <div class="home-hero">
+          <div class="home-copy">
+            <p class="eyebrow"><span class="eyebrow-sparkle" aria-hidden="true">✦</span> THE LITTLE LOGIC CLUB</p>
+            <h1 id="home-title">A good break is just <span>one grid</span> away.</h1>
+            <p class="home-subtitle">Trade the scroll for a satisfying little challenge. Take a breath, spot a pattern, and let the numbers click into place.</p>
+            <div class="home-actions">
+              <button class="new-game-button home-start-button" id="home-start-button">Play a puzzle <span aria-hidden="true">→</span></button>
+              <button class="text-button home-continue-button" id="home-continue-button" hidden>Continue puzzle</button>
+            </div>
+            <a class="how-link home-how-link" href="#how-to-play">New to Sudoku? See how it works <span aria-hidden="true">↓</span></a>
+          </div>
+
+          <div class="grid-art" aria-label="A colorful Sudoku grid illustration">
+            <div class="grid-art-heading"><span>PUZZLE NO. 009</span><span class="grid-art-sparkle" aria-hidden="true">✳</span></div>
+            <div class="grid-art-board-wrap">
+              <div class="preview-board" id="preview-board" role="img" aria-label="A sample Sudoku grid"></div>
+            </div>
+            <div class="grid-art-caption"><span class="grid-art-caption-mark" aria-hidden="true">✦</span><span><strong>Find the missing piece.</strong><small>Every row has a rhythm.</small></span><span class="grid-art-arrow" aria-hidden="true">↗</span></div>
+          </div>
+        </div>
+
+        <section class="difficulty-section" aria-labelledby="difficulty-title">
+          <div class="difficulty-heading">
+            <div><p class="eyebrow">SET YOUR OWN PACE</p><h2 id="difficulty-title">What sounds good?</h2></div>
+            <p>Every puzzle has a little help if you need it.</p>
+          </div>
+          <div class="difficulty-options" role="group" aria-label="Choose a puzzle difficulty">
+            <button class="difficulty-option" type="button" data-home-difficulty="Easy" aria-pressed="false">
+              <span class="difficulty-option-icon easy-icon" aria-hidden="true">☼</span>
+              <span class="difficulty-option-copy"><strong>Easy</strong><small>A gentle warm-up</small></span>
+              <span class="difficulty-option-time">10 min</span>
+            </button>
+            <button class="difficulty-option is-selected" type="button" data-home-difficulty="Medium" aria-pressed="true">
+              <span class="difficulty-option-icon medium-icon" aria-hidden="true">✳</span>
+              <span class="difficulty-option-copy"><strong>Medium</strong><small>A nice balance</small></span>
+              <span class="difficulty-option-time">15 min</span>
+            </button>
+            <button class="difficulty-option" type="button" data-home-difficulty="Hard" aria-pressed="false">
+              <span class="difficulty-option-icon hard-icon" aria-hidden="true">✦</span>
+              <span class="difficulty-option-copy"><strong>Hard</strong><small>Ready to focus?</small></span>
+              <span class="difficulty-option-time">20 min</span>
+            </button>
+          </div>
+          <p class="difficulty-footnote"><span aria-hidden="true">✧</span> Five hints are waiting in every puzzle.</p>
+        </section>
+
+        <section class="how-to" id="how-to-play" aria-labelledby="how-title">
+          <div class="how-heading">
+            <p class="eyebrow">THE RULES ARE SIMPLE</p>
+            <h2 id="how-title">Nine numbers. Three little rules.</h2>
+            <p>Use each number once in every row, column, and square.</p>
+          </div>
+          <div class="how-steps">
+            <article class="how-step"><span class="step-number">01</span><div><h3>Across</h3><p>Each row needs every number from 1 to 9, with no repeats.</p></div></article>
+            <article class="how-step"><span class="step-number">02</span><div><h3>Down</h3><p>Each column also needs the full set of nine numbers.</p></div></article>
+            <article class="how-step"><span class="step-number">03</span><div><h3>In each box</h3><p>Fill every 3×3 square without repeating a number.</p></div></article>
+          </div>
+        </section>
+      </section>
+
+      <section class="game-card" id="game-card" aria-labelledby="game-title" hidden>
         <div class="game-intro">
           <div>
             <p class="eyebrow">YOUR DAILY MOMENT OF CALM</p>
